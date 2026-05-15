@@ -40,6 +40,17 @@ text = "STATUS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ScoreboardLabel" type="Label" parent="CanvasLayer" unique_id=781536177]
+offset_left = 868.0
+offset_right = 1152.0
+offset_bottom = 123.0
+
+[node name="PressureBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=1509003843]
+offset_left = 444.0
+offset_top = 168.0
+offset_right = 718.0
+offset_bottom = 220.0
+
 [node name="SpawnPoints" type="Node" parent="." unique_id=1982106776]
 
 [node name="Spawn1" type="Marker3D" parent="SpawnPoints" unique_id=642117754]

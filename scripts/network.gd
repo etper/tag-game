@@ -17,6 +17,10 @@ var game_state = GameState.WAITING
 
 @onready var tag_sound = $TagSound
 
+@onready var scoreboard_label = $CanvasLayer/ScoreboardLabel
+
+@onready var pressure_bar = $CanvasLayer/PressureBar
+
 @export var burst_scene: PackedScene
 
 var min_players = 2
@@ -231,6 +235,33 @@ func update_ui():
 		GameState.ENDING:
 			status_label.text = "Koniec rundy!"
 
+	# SCOREBOARD UI
+	var sorted_players = player_scores.keys()
+
+	sorted_players.sort_custom(func(a, b):
+		return player_scores[a] > player_scores[b]
+	)
+
+	var score_text = ""
+
+	for id in sorted_players:
+
+		var line = "Player " + str(id)
+
+		if id == it_player_id:
+			line += " [IT]"
+
+		if id == sorted_players[0]:
+			line += " ⚠"
+
+		line += " : " + str(snapped(player_scores[id], 0.1))
+
+		score_text += line + "\n"
+
+	scoreboard_label.text = score_text
+	
+	pressure_bar.value = get_local_pressure_ratio() * 100.0
+
 func start_countdown():
 
 	game_state = GameState.COUNTDOWN
@@ -350,3 +381,20 @@ func spawn_tag_burst(pos):
 	add_child(burst)
 
 	burst.global_position = pos + Vector3.UP
+
+func get_local_pressure_ratio():
+
+	var local_id = multiplayer.get_unique_id()
+
+	if !player_scores.has(local_id):
+		return 0.0
+
+	var highest = 0.0
+
+	for id in player_scores:
+		highest = max(highest, player_scores[id])
+
+	if highest <= 0:
+		return 0.0
+
+	return player_scores[local_id] / highest
