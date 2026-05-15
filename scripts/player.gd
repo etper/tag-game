@@ -186,3 +186,24 @@ func apply_speed_boost():
 func set_danger_level(value):
 
 	danger_amount = clamp(value, 0.0, 1.0)
+
+	if danger_amount > 0.05:
+
+		if !heartbeat_player.playing:
+			heartbeat_player.play()
+
+		heartbeat_player.volume_db = lerp(
+			-25.0,
+			-3.0,
+			danger_amount
+		)
+
+		heartbeat_player.pitch_scale = lerp(
+			0.8,
+			1.3,
+			danger_amount
+		)
+
+	else:
+
+		heartbeat_player.stop()

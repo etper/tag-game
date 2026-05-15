@@ -10,11 +10,6 @@ extends Node
 	#parkour movement
 	#score pressure
 	#tagging feel good
-		#near miss feeling
-			#tag range shorter
-			#danger zone around IT player
-			#1.3m actual tag
-			#3m heartbeat / screen effect
 		#make the chase asymmetric
 			#give it one strong movement tool
 			#one weakness
