@@ -161,17 +161,28 @@ func _physics_process(delta):
 				velocity.z
 			).length()
 
-			it_trail.emitting = horizontal_speed > 2.0
+			var emit = horizontal_speed > 2.0
 
-			it_trail.amount_ratio = clamp(
+			var ratio = clamp(
 				horizontal_speed / 15.0,
 				0.2,
 				1.0
 			)
 
+			it_trail.emitting = emit
+			it_trail.amount_ratio = ratio
+
+			sync_trail_state.rpc(
+				emit,
+				ratio,
+				it_trail.speed_scale
+			)
+
 		else:
 
 			it_trail.emitting = false
+
+			sync_trail_state.rpc(false, 0.0, 1.0)
 
 		update_transform.rpc(global_transform)
 
@@ -296,3 +307,9 @@ func _process(delta):
 				"glow_strength",
 				pulse
 			)
+
+@rpc("unreliable", "any_peer", "call_local")
+func sync_trail_state(emitting_state, ratio, speed):
+	it_trail.emitting = emitting_state
+	it_trail.amount_ratio = ratio
+	it_trail.speed_scale = speed

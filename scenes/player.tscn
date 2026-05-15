@@ -26,8 +26,6 @@ scale_min = 0.08
 scale_max = 0.17999999
 color = Color(1.353256, 0.6651851, 0.6651851, 1)
 
-[sub_resource type="QuadMesh" id="QuadMesh_qlg0r"]
-
 [node name="Player" type="CharacterBody3D" unique_id=351949329]
 script = ExtResource("1_4flbx")
 
@@ -62,9 +60,9 @@ billboard = 1
 texture = ExtResource("3_qhqgy")
 
 [node name="ItTrail" type="GPUParticles3D" parent="." unique_id=936575984]
+emitting = false
 amount = 60
 lifetime = 0.35000000000000003
 randomness = 0.2
-visibility_aabb = AABB(-10, -10, -10, 20, 20, 20)
+visibility_aabb = AABB(-100, -100, -100, 200, 200, 200)
 process_material = SubResource("ParticleProcessMaterial_dqkch")
-draw_pass_1 = SubResource("QuadMesh_qlg0r")
