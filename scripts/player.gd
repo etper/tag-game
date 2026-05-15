@@ -17,6 +17,8 @@ const DASH_UPWARD_BOOST = 0.5
 
 @onready var it_icon = $ItIcon
 
+@onready var outline_mesh = $OutlineMesh
+
 var dash_ready = true
 
 var danger_amount := 0.0
@@ -181,6 +183,7 @@ func set_is_it(value):
 	is_it = value
 
 	it_icon.visible = is_it
+	outline_mesh.visible = is_it
 
 	var material = $PlayerBody.material_override
 
@@ -190,8 +193,12 @@ func set_is_it(value):
 
 	if is_it:
 		material.albedo_color = Color.RED
+		material.emission_enabled = true
+		material.emission = Color(1, 0, 0)
+		material.emission_energy_multiplier = 2.5
 	else:
 		material.albedo_color = Color.WHITE
+		material.emission_enabled = false
 
 @rpc("any_peer", "call_local")
 func force_teleport(new_position):
@@ -249,3 +256,15 @@ func _process(delta):
 	if it_icon.visible:
 
 		it_icon.position.y = 2.2 + sin(Time.get_ticks_msec() * 0.005) * 0.15
+	
+	if is_it:
+
+		var pulse = 3.0 + sin(Time.get_ticks_msec() * 0.008) * 1.0
+
+		var mat = outline_mesh.material_override
+
+		if mat:
+			mat.set_shader_parameter(
+				"glow_strength",
+				pulse
+			)

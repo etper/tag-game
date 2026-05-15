@@ -40,7 +40,6 @@ extends Node
 		#players become desperate
 	#whats missing UI
 		#who is it
-			#outline glow shader
 			#trail particles
 			#pulsing screen edge indicator when IT is behind you
 		#dash ui

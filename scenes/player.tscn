@@ -1,12 +1,20 @@
 [gd_scene format=3 uid="uid://ccbycgdrj8uj8"]
 
 [ext_resource type="Script" uid="uid://b2qqjm22ltptj" path="res://scripts/player.gd" id="1_4flbx"]
+[ext_resource type="Shader" uid="uid://cxginetvu65u" path="res://scenes/it_outline.gdshader" id="2_dqkch"]
 [ext_resource type="AudioStream" uid="uid://3ukyuepn3iau" path="res://sfx/heartbeatloop.mp3" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://3fqthvb4vbo7" path="res://sprites/itIcon.png" id="3_qhqgy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7dm0k"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ig7tw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qlg0r"]
+render_priority = 0
+shader = ExtResource("2_dqkch")
+shader_parameter/glow_color = Color(1, 0.1, 0.1, 1)
+shader_parameter/fresnel_power = 3.0
+shader_parameter/glow_strength = 4.0
 
 [node name="Player" type="CharacterBody3D" unique_id=351949329]
 script = ExtResource("1_4flbx")
@@ -19,6 +27,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6367408, 0)
 
 [node name="PlayerBody" type="MeshInstance3D" parent="." unique_id=1287650611]
 mesh = SubResource("CapsuleMesh_ig7tw")
+
+[node name="OutlineMesh" type="MeshInstance3D" parent="." unique_id=1522240433]
+transform = Transform3D(1.08, 0, 0, 0, 1.08, 0, 0, 0, 1.08, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("CapsuleMesh_ig7tw")
+surface_material_override/0 = SubResource("ShaderMaterial_qlg0r")
 
 [node name="HeartbeatPlayer" type="AudioStreamPlayer3D" parent="." unique_id=2072563342]
 stream = ExtResource("2_g2els")
