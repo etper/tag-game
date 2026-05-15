@@ -50,6 +50,9 @@ func get_player_count():
 	return count
 
 func _ready():
+	
+	set_multiplayer_authority(1)
+	
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.connected_to_server.connect(_connected_ok)
 
@@ -108,15 +111,18 @@ func _spawn_player(id):
 	player.set_multiplayer_authority(id)
 
 	add_child(player)
-	
+
 	player_scores[id] = 0
+
+	player.set_is_it(id == it_player_id)
 
 func _process(delta):
 
 	update_ui()
 
 	if !multiplayer.is_server():
-		return
+		sync_game_state.rpc(game_state, current_time)
+		sync_scores.rpc(player_scores)
 
 	match game_state:
 
@@ -267,13 +273,13 @@ func start_countdown():
 	game_state = GameState.COUNTDOWN
 	current_time = 3.0
 
-@rpc("authority", "call_local")
+@rpc("any_peer", "call_local")
 func sync_game_state(new_state, new_time):
 
 	game_state = new_state
 	current_time = new_time
 
-@rpc("authority", "call_local")
+@rpc("any_peer", "call_local")
 func update_it_player(new_it_id):
 
 	it_player_id = new_it_id
@@ -282,7 +288,9 @@ func update_it_player(new_it_id):
 
 		if child is CharacterBody3D:
 
-			child.set_is_it(int(child.name) == it_player_id)
+			child.set_is_it(
+				int(child.name) == it_player_id
+			)
 
 func check_tagging():
 
@@ -364,7 +372,7 @@ func check_fallen_players():
 
 				child.global_position = random_spawn.global_position
 
-@rpc("call_local")
+@rpc("any_peer", "call_local")
 func hit_pause():
 
 	Engine.time_scale = 0.05
@@ -373,7 +381,7 @@ func hit_pause():
 
 	Engine.time_scale = 1.0
 
-@rpc("call_local")
+@rpc("any_peer", "call_local")
 func spawn_tag_burst(pos):
 
 	var burst = burst_scene.instantiate()
@@ -398,3 +406,7 @@ func get_local_pressure_ratio():
 		return 0.0
 
 	return player_scores[local_id] / highest
+
+@rpc("any_peer", "call_local")
+func sync_scores(new_scores):
+	player_scores = new_scores
