@@ -11,6 +11,10 @@ enum GameState {
 
 var game_state = GameState.WAITING
 
+@onready var tag_sound = $TagSound
+
+@export var burst_scene: PackedScene
+
 var min_players = 2
 var round_time = 30.0
 var end_time = 5.0
@@ -259,6 +263,20 @@ func check_tagging():
 				update_it_player.rpc(it_player_id)
 
 				print("TAGGED: ", it_player_id)
+				
+				hit_pause.rpc()
+				
+				tag_sound.pitch_scale = randf_range(0.95, 1.05)
+				tag_sound.play()
+				
+				it_player.add_screenshake.rpc(0.12)
+				child.add_screenshake.rpc(0.18)
+				
+				spawn_tag_burst.rpc(
+					(it_player.global_position + child.global_position) * 0.5
+				)
+
+				child.apply_speed_boost.rpc()
 
 				return
 
@@ -276,3 +294,21 @@ func check_fallen_players():
 				var random_spawn = spawn_points.pick_random()
 
 				child.global_position = random_spawn.global_position
+
+@rpc("call_local")
+func hit_pause():
+
+	Engine.time_scale = 0.05
+
+	await get_tree().create_timer(0.05, true, false, true).timeout
+
+	Engine.time_scale = 1.0
+
+@rpc("call_local")
+func spawn_tag_burst(pos):
+
+	var burst = burst_scene.instantiate()
+
+	add_child(burst)
+
+	burst.global_position = pos + Vector3.UP

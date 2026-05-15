@@ -15,13 +15,29 @@ const MAX_JUMPS = 2
 
 var jumps_left = MAX_JUMPS
 
+var shake_strength = 0.0
+
+var speed_boost = 1.0
+
 var mouse_sensitivity = 0.002
 
 var is_it = false
 
 func _physics_process(delta):
 
+	shake_strength = move_toward(
+	shake_strength,
+	0.0,
+	delta * 20.0
+	)
+
 	if is_multiplayer_authority():
+		
+		$Camera3D.position = Vector3(
+		randf_range(-shake_strength, shake_strength),
+		randf_range(-shake_strength, shake_strength),
+		0
+		)
 
 		var input_dir = Input.get_vector(
 			"move_left",
@@ -42,7 +58,7 @@ func _physics_process(delta):
 			velocity.z
 		)
 
-		var target_velocity = direction * MAX_SPEED
+		var target_velocity = direction * MAX_SPEED * speed_boost
 
 		# choose accel/friction
 		var accel = ACCELERATION
@@ -140,3 +156,16 @@ func force_teleport(new_position):
 
 	global_position = new_position
 	velocity = Vector3.ZERO
+
+@rpc("any_peer", "call_local")
+func add_screenshake(amount):
+	shake_strength = max(shake_strength, amount)
+
+@rpc("any_peer", "call_local")
+func apply_speed_boost():
+
+	speed_boost = 3.0
+
+	await get_tree().create_timer(0.7).timeout
+
+	speed_boost = 1.0

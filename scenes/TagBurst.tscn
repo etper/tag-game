@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bgc8v2mjp5ra7"]
+
+[ext_resource type="Script" uid="uid://btr7ji3teokfg" path="res://scenes/tag_burst.gd" id="1_wv104"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7vhed"]
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 1.0
+initial_velocity_min = 4.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.25
+color = Color(4.3315187, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wv104"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_7vhed"]
+material = SubResource("StandardMaterial3D_wv104")
+
+[node name="TagBurst" type="GPUParticles3D" unique_id=511620951]
+emitting = false
+amount = 100
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_7vhed")
+draw_pass_1 = SubResource("SphereMesh_7vhed")
+script = ExtResource("1_wv104")

@@ -3,7 +3,7 @@ extends Control
 @onready var ip_input = $VBoxContainer/IPInput
 
 func _on_host_button_pressed():
-	var scene = load("res://main.tscn").instantiate()
+	var scene = load("res://scenes/main.tscn").instantiate()
 
 	scene.auto_host = true
 
@@ -12,7 +12,7 @@ func _on_host_button_pressed():
 	get_tree().current_scene = scene
 
 func _on_join_button_pressed():
-	var scene = load("res://main.tscn").instantiate()
+	var scene = load("res://scenes/main.tscn").instantiate()
 
 	scene.join_ip = ip_input.text
 
