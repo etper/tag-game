@@ -38,8 +38,8 @@ func _player_connected(id):
 func _spawn_player(id):
 	var player = player_scene.instantiate()
 
-	player.name = str(id)
-
 	add_child(player)
+
+	player.name = str(id)
 
 	player.set_multiplayer_authority(id)
