@@ -9,6 +9,10 @@ enum GameState {
 	ENDING
 }
 
+var player_scores = {
+	
+}
+
 var game_state = GameState.WAITING
 
 @onready var tag_sound = $TagSound
@@ -100,6 +104,8 @@ func _spawn_player(id):
 	player.set_multiplayer_authority(id)
 
 	add_child(player)
+	
+	player_scores[id] = 0
 
 func _process(delta):
 
@@ -122,6 +128,9 @@ func _process(delta):
 
 		GameState.PLAYING:
 			current_time -= delta
+			
+			if it_player_id != -1:
+				player_scores[it_player_id] += delta
 			
 			check_tagging()
 			check_fallen_players()
@@ -184,10 +193,21 @@ func start_round():
 
 func end_round():
 
+	var losing_player = -1
+	var highest_score = -1.0
+	
+	for id in player_scores:
+		
+		if player_scores[id] > highest_score:
+			
+			highest_score = player_scores[id]
+			losing_player = id
+
 	game_state = GameState.ENDING
 	current_time = end_time
 
 	print("ROUND ENDED")
+	print("LOSER: ", losing_player)
 
 func restart_round():
 

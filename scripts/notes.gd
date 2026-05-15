@@ -9,6 +9,9 @@ extends Node
 		#
 	#parkour movement
 	#score pressure
+		#it gains points over time, highest score loses
+		#shrinking safe zone, gaining points outside fog
+		#combo scoring, tag someone within 5s of becoming IT, lose some points
 	#tagging feel good
 		#make the chase asymmetric
 			#give it one strong movement tool
