@@ -11,6 +11,8 @@ const AIR_FRICTION = 5.0
 const JUMP_FORCE = 10.0
 const GRAVITY = 20.0
 
+var danger_amount := 0.0
+
 const MAX_JUMPS = 2
 
 var jumps_left = MAX_JUMPS
@@ -18,6 +20,8 @@ var jumps_left = MAX_JUMPS
 var shake_strength = 0.0
 
 var speed_boost = 1.0
+
+@onready var heartbeat_player = $HeartbeatPlayer
 
 var mouse_sensitivity = 0.002
 
@@ -30,13 +34,21 @@ func _physics_process(delta):
 	0.0,
 	delta * 20.0
 	)
+	
+	danger_amount = move_toward(
+	danger_amount,
+	0.0,
+	delta * 2.5
+	)
 
 	if is_multiplayer_authority():
 		
+		var total_shake = shake_strength + danger_amount * 0.05
+
 		$Camera3D.position = Vector3(
-		randf_range(-shake_strength, shake_strength),
-		randf_range(-shake_strength, shake_strength),
-		0
+			randf_range(-total_shake, total_shake),
+			randf_range(-total_shake, total_shake),
+			0
 		)
 
 		var input_dir = Input.get_vector(
@@ -169,3 +181,8 @@ func apply_speed_boost():
 	await get_tree().create_timer(0.7).timeout
 
 	speed_boost = 1.0
+
+@rpc("any_peer", "call_local")
+func set_danger_level(value):
+
+	danger_amount = clamp(value, 0.0, 1.0)

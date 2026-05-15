@@ -243,6 +243,8 @@ func check_tagging():
 	if it_player == null:
 		return
 
+	var DANGER_RADIUS = 10.0
+
 	for child in get_children():
 
 		if child is CharacterBody3D:
@@ -254,7 +256,23 @@ func check_tagging():
 				child.global_position
 			)
 
-			if distance < 2.0:
+			# danger feedback
+			if distance < DANGER_RADIUS:
+
+				var danger_strength = 1.0 - (
+					distance / DANGER_RADIUS
+				)
+
+				child.set_danger_level.rpc(
+					danger_strength
+				)
+
+			else:
+
+				child.set_danger_level.rpc(0.0)
+
+			# actual tag
+			if distance < 1.3:
 
 				it_player_id = int(child.name)
 
@@ -263,15 +281,15 @@ func check_tagging():
 				update_it_player.rpc(it_player_id)
 
 				print("TAGGED: ", it_player_id)
-				
+
 				hit_pause.rpc()
-				
+
 				tag_sound.pitch_scale = randf_range(0.95, 1.05)
 				tag_sound.play()
-				
+
 				it_player.add_screenshake.rpc(0.12)
 				child.add_screenshake.rpc(0.18)
-				
+
 				spawn_tag_burst.rpc(
 					(it_player.global_position + child.global_position) * 0.5
 				)
