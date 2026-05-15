@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b2qqjm22ltptj" path="res://scripts/player.gd" id="1_4flbx"]
 [ext_resource type="AudioStream" uid="uid://3ukyuepn3iau" path="res://sfx/heartbeatloop.mp3" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://3fqthvb4vbo7" path="res://sprites/itIcon.png" id="3_qhqgy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7dm0k"]
 
@@ -28,3 +29,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2985946, 0)
 billboard = 1
 text = "Sex"
 font_size = 64
+
+[node name="ItIcon" type="Sprite3D" parent="." unique_id=1797760927]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8950279, 0)
+billboard = 1
+texture = ExtResource("3_qhqgy")

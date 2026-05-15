@@ -15,6 +15,8 @@ const DASH_FORCE = 32.0
 const DASH_COOLDOWN = 3.5
 const DASH_UPWARD_BOOST = 0.5
 
+@onready var it_icon = $ItIcon
+
 var dash_ready = true
 
 var danger_amount := 0.0
@@ -178,6 +180,8 @@ func set_is_it(value):
 
 	is_it = value
 
+	it_icon.visible = is_it
+
 	var material = $PlayerBody.material_override
 
 	if material == null:
@@ -239,3 +243,9 @@ func set_nickname(value):
 	nickname = value
 
 	$NameLabel.text = value
+
+func _process(delta):
+
+	if it_icon.visible:
+
+		it_icon.position.y = 2.2 + sin(Time.get_ticks_msec() * 0.005) * 0.15

@@ -1,7 +1,6 @@
 extends Node
 
 #more fun game
-	#special powers for IT
 	#parkour movement
 	#score pressure
 		#shrinking safe zone, gaining points outside fog
@@ -21,9 +20,6 @@ extends Node
 		#stamina
 		#dash recharge
 		#downhill speed boosts
-	#make IT have unique playstyle
-		#one unfair strength
-		#one exploitable weakness
 	#make concrete special map
 		#corners
 		#verticality
@@ -42,3 +38,42 @@ extends Node
 		#mobility expands
 		#safe zones shrink
 		#players become desperate
+	#whats missing UI
+		#who is it
+			#outline glow shader
+			#trail particles
+			#pulsing screen edge indicator when IT is behind you
+		#dash ui
+			#cooldown radial/bar
+			#ready flash
+			#recharge sfx
+		#you are it transition
+			#giant center text you are it
+			#color flash
+			#vignette pulse
+			#quick audio sting
+		#countdown ui
+			#giant animated numbers
+			#scale bounce
+			#sound tick
+			#go! flash
+		#scoreboard hard to read
+			#compact player cards
+			#color coding
+			#crown/skull icon
+			#highlight local player
+		#movement state feedback
+			#speed lines/fov increase
+			#landing impact
+			#jump dust
+			#dash streak
+			#air movement audio
+		#no round result screen
+			#loser spotlight
+			#stats
+			#survival time
+			#most tags
+			#dramatic pause
+		#onboarding ui
+			#wasd move, space jump double jump, shift dash it only, avoid being it
+			#make it visible for the countdown screen
