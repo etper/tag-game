@@ -3,7 +3,6 @@ extends Node
 #more fun game
 	#special powers for IT
 	#vertical movement
-		#jumping
 		#double jump
 		#wall running
 		#wall jumping

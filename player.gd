@@ -6,6 +6,10 @@ const JUMP_FORCE = 10.0
 
 const GRAVITY = 20.0
 
+const MAX_JUMPS = 2
+
+var jumps_left = MAX_JUMPS
+
 var mouse_sensitivity = 0.002
 
 var is_it = false
@@ -37,9 +41,12 @@ func _physics_process(delta):
 			velocity.y -= GRAVITY * delta
 		else:
 			velocity.y = 0
+			jumps_left = MAX_JUMPS
 
-			if Input.is_action_just_pressed("jump"):
-				velocity.y = JUMP_FORCE
+		# jumping
+		if Input.is_action_just_pressed("jump") and jumps_left > 0:
+			velocity.y = JUMP_FORCE
+			jumps_left -= 1
 
 		move_and_slide()
 
