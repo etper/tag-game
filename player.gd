@@ -4,6 +4,8 @@ const SPEED = 5.0
 
 var mouse_sensitivity = 0.002
 
+var is_it = false
+
 func _physics_process(delta):
 
 	if is_multiplayer_authority():
@@ -61,3 +63,18 @@ func _input(event):
 			deg_to_rad(-80),
 			deg_to_rad(80)
 		)
+
+func set_is_it(value):
+
+	is_it = value
+
+	var material = $PlayerBody.material_override
+
+	if material == null:
+		material = StandardMaterial3D.new()
+		$PlayerBody.material_override = material
+
+	if is_it:
+		material.albedo_color = Color.RED
+	else:
+		material.albedo_color = Color.WHITE

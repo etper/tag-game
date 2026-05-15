@@ -19,6 +19,10 @@ var current_time = 0.0
 
 @onready var status_label = $CanvasLayer/StatusLabel
 
+var it_player_id = -1
+var last_tag_time = 0.0
+var tag_cooldown = 1.0
+
 @export var player_scene: PackedScene
 
 var auto_host = false
@@ -114,6 +118,8 @@ func _process(delta):
 
 		GameState.PLAYING:
 			current_time -= delta
+			
+			check_tagging()
 
 			if current_time <= 0:
 				end_round()
@@ -131,6 +137,16 @@ func start_round():
 
 	game_state = GameState.PLAYING
 	current_time = round_time
+
+	var players = []
+
+	for child in get_children():
+		if child is CharacterBody3D:
+			players.append(int(child.name))
+
+	if players.size() > 0:
+		it_player_id = players.pick_random()
+		update_it_player.rpc(it_player_id)
 
 	print("ROUND STARTED")
 
@@ -173,3 +189,47 @@ func sync_game_state(new_state, new_time):
 
 	game_state = new_state
 	current_time = new_time
+
+@rpc("authority", "call_local")
+func update_it_player(new_it_id):
+
+	it_player_id = new_it_id
+
+	for child in get_children():
+
+		if child is CharacterBody3D:
+
+			child.set_is_it(int(child.name) == it_player_id)
+
+func check_tagging():
+
+	if Time.get_ticks_msec() / 1000.0 - last_tag_time < tag_cooldown:
+		return
+
+	var it_player = get_node_or_null(str(it_player_id))
+
+	if it_player == null:
+		return
+
+	for child in get_children():
+
+		if child is CharacterBody3D:
+
+			if child == it_player:
+				continue
+
+			var distance = it_player.global_position.distance_to(
+				child.global_position
+			)
+
+			if distance < 2.0:
+
+				it_player_id = int(child.name)
+
+				last_tag_time = Time.get_ticks_msec() / 1000.0
+
+				update_it_player.rpc(it_player_id)
+
+				print("TAGGED: ", it_player_id)
+
+				return
