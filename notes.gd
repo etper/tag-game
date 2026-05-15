@@ -5,7 +5,6 @@ extends Node
 	#vertical movement
 		#grappling hook
 		#climbing
-		#bounce pads, launchers
 		#sliding downhill
 		#
 	#parkour movement
@@ -13,8 +12,6 @@ extends Node
 	#tagging feel good
 	#add risk zones
 	#movement
-		#acceleration
-		#momentum
 		#stamina
 		#dash recharge
 		#downhill speed boosts

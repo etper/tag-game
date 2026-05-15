@@ -1,9 +1,14 @@
 extends CharacterBody3D
 
-const SPEED = 15.0
+const MAX_SPEED = 15.0
+
+const ACCELERATION = 60.0
+const AIR_ACCELERATION = 20.0
+
+const FRICTION = 45.0
+const AIR_FRICTION = 5.0
 
 const JUMP_FORCE = 10.0
-
 const GRAVITY = 20.0
 
 const MAX_JUMPS = 2
@@ -30,20 +35,49 @@ func _physics_process(delta):
 			Vector3(input_dir.x, 0, input_dir.y)
 		).normalized()
 
-		if direction:
-			velocity.x = direction.x * SPEED
-			velocity.z = direction.z * SPEED
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-			velocity.z = move_toward(velocity.z, 0, SPEED)
+		# current horizontal velocity
+		var horizontal_velocity = Vector3(
+			velocity.x,
+			0,
+			velocity.z
+		)
 
+		var target_velocity = direction * MAX_SPEED
+
+		# choose accel/friction
+		var accel = ACCELERATION
+		var friction = FRICTION
+
+		if !is_on_floor():
+			accel = AIR_ACCELERATION
+			friction = AIR_FRICTION
+
+		# movement
+		if direction != Vector3.ZERO:
+
+			horizontal_velocity = horizontal_velocity.move_toward(
+				target_velocity,
+				accel * delta
+			)
+
+		else:
+
+			horizontal_velocity = horizontal_velocity.move_toward(
+				Vector3.ZERO,
+				friction * delta
+			)
+
+		velocity.x = horizontal_velocity.x
+		velocity.z = horizontal_velocity.z
+
+		# gravity
 		if !is_on_floor():
 			velocity.y -= GRAVITY * delta
 		else:
-			
+
 			if velocity.y < 0:
 				velocity.y = 0
-			
+
 			jumps_left = MAX_JUMPS
 
 		# jumping
