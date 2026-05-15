@@ -5,11 +5,14 @@ const JUMP_VELOCITY = 4.5
 
 func _physics_process(delta):
 
+	if !is_multiplayer_authority():
+		return
+
 	var input_dir = Input.get_vector(
 		"move_left",
 		"move_right",
 		"move_forward",
-        "move_back"
+		"move_back"
 	)
 
 	var direction = (
@@ -29,7 +32,11 @@ func _physics_process(delta):
 var mouse_sensitivity = 0.002
 
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if is_multiplayer_authority():
+		$Camera3D.current = true
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	else:
+		$Camera3D.current = false
 
 func _input(event):
 	if event is InputEventMouseMotion:

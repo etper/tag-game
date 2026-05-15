@@ -1,12 +1,15 @@
 [gd_scene format=3 uid="uid://do07adp8hc3l7"]
 
+[ext_resource type="Script" uid="uid://cdg1qr6ii8bpq" path="res://network.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://ccbycgdrj8uj8" path="res://player.tscn" id="1_ig7tw"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_7dm0k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
 
-[node name="Node3D" type="Node3D" unique_id=494472827]
+[node name="Main" type="Node3D" unique_id=494472827]
+script = ExtResource("1_0xm2m")
+player_scene = ExtResource("1_ig7tw")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1310606624]
 transform = Transform3D(1, 0, 0, 0, 0.3630236, 0.9317799, 0, -0.9317799, 0.3630236, 0, 11.602362, 7.3465004)
@@ -22,6 +25,3 @@ mesh = SubResource("BoxMesh_7dm0k")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=789555043]
 transform = Transform3D(19.43267, 0, 0, 0, 0.07433671, 0, 0, 0, 20.152657, 0, 0, 0)
 shape = SubResource("BoxShape3D_ig7tw")
-
-[node name="Player" parent="." unique_id=351949329 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
