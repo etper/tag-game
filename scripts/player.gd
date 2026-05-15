@@ -195,6 +195,10 @@ func _ready():
 	if is_multiplayer_authority():
 		$Camera3D.current = true
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		
+		$PlayerBody.visible = false
+		$OutlineMesh.visible = false
+		$ItIcon.visible = false
 	else:
 		$Camera3D.current = false
 

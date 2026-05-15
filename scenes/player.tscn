@@ -9,6 +9,8 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ig7tw"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_dqkch"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qlg0r"]
 render_priority = 0
 shader = ExtResource("2_dqkch")
@@ -37,6 +39,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6367408, 0)
 
 [node name="PlayerBody" type="MeshInstance3D" parent="." unique_id=1287650611]
 mesh = SubResource("CapsuleMesh_ig7tw")
+
+[node name="ForwardMarker" type="MeshInstance3D" parent="PlayerBody" unique_id=1522711553]
+transform = Transform3D(0.5744887, 0, 0, 0, 0.20789719, 0, 0, 0, 0.61757475, 0.08627868, 0.5834438, -0.2962253)
+mesh = SubResource("BoxMesh_dqkch")
 
 [node name="OutlineMesh" type="MeshInstance3D" parent="." unique_id=1522240433]
 transform = Transform3D(1.08, 0, 0, 0, 1.08, 0, 0, 0, 1.08, 0, 0, 0)
