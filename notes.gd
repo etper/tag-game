@@ -1,5 +1,7 @@
 extends Node
 
-#make two players join a game and see each other move
-#make host/join buttons
 #make tag game
+	#it system, only one player can be it, highlight them, transfer on touch
+	#touch detection, 1s cooldown to prevent instant retag
+	#lose condition, when timer 0 then eliminate player
+	#

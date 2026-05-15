@@ -25,3 +25,10 @@ mesh = SubResource("BoxMesh_7dm0k")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=789555043]
 transform = Transform3D(19.43267, 0, 0, 0, 0.07433671, 0, 0, 0, 20.152657, 0, 0, 0)
 shape = SubResource("BoxShape3D_ig7tw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1251456914]
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer" unique_id=807001011]
+offset_right = 232.0
+offset_bottom = 120.0
+text = "STATUS"

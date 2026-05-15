@@ -15,5 +15,5 @@ shape = SubResource("CapsuleShape3D_7dm0k")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1114073770]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6367408, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1287650611]
+[node name="PlayerBody" type="MeshInstance3D" parent="." unique_id=1287650611]
 mesh = SubResource("CapsuleMesh_ig7tw")
