@@ -19,6 +19,8 @@ const DASH_UPWARD_BOOST = 0.5
 
 @onready var outline_mesh = $OutlineMesh
 
+@onready var it_trail = $ItTrail
+
 var dash_ready = true
 
 var danger_amount := 0.0
@@ -137,6 +139,13 @@ func _physics_process(delta):
 			
 			velocity += dash_direction * DASH_FORCE
 			
+			it_trail.amount_ratio = 1.0
+			it_trail.speed_scale = 2.5
+
+			await get_tree().create_timer(0.15).timeout
+
+			it_trail.speed_scale = 1.0
+			
 			add_screenshake(0.08)
 			
 			await get_tree().create_timer(DASH_COOLDOWN).timeout
@@ -144,6 +153,25 @@ func _physics_process(delta):
 			dash_ready = true
 
 		move_and_slide()
+		
+		if is_it:
+
+			var horizontal_speed = Vector2(
+				velocity.x,
+				velocity.z
+			).length()
+
+			it_trail.emitting = horizontal_speed > 2.0
+
+			it_trail.amount_ratio = clamp(
+				horizontal_speed / 15.0,
+				0.2,
+				1.0
+			)
+
+		else:
+
+			it_trail.emitting = false
 
 		update_transform.rpc(global_transform)
 

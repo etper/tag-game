@@ -16,6 +16,18 @@ shader_parameter/glow_color = Color(1, 0.1, 0.1, 1)
 shader_parameter/fresnel_power = 3.0
 shader_parameter/glow_strength = 4.0
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dqkch"]
+direction = Vector3(0, 0, 1)
+spread = 10.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.5
+gravity = Vector3(0, 0, 0)
+scale_min = 0.08
+scale_max = 0.17999999
+color = Color(1.353256, 0.6651851, 0.6651851, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_qlg0r"]
+
 [node name="Player" type="CharacterBody3D" unique_id=351949329]
 script = ExtResource("1_4flbx")
 
@@ -48,3 +60,11 @@ font_size = 64
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8950279, 0)
 billboard = 1
 texture = ExtResource("3_qhqgy")
+
+[node name="ItTrail" type="GPUParticles3D" parent="." unique_id=936575984]
+amount = 60
+lifetime = 0.35000000000000003
+randomness = 0.2
+visibility_aabb = AABB(-10, -10, -10, 20, 20, 20)
+process_material = SubResource("ParticleProcessMaterial_dqkch")
+draw_pass_1 = SubResource("QuadMesh_qlg0r")
