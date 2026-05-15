@@ -41,9 +41,20 @@ func _on_peer_connected(id):
 	print("Peer connected: ", id)
 
 	if multiplayer.is_server():
+
+		# spawn new player everywhere
 		_spawn_player.rpc(id)
 
-@rpc("authority", "call_local")
+		# tell new player about existing players
+		for player in get_children():
+
+			if player is CharacterBody3D:
+
+				var existing_id = int(player.name)
+
+				_spawn_player.rpc_id(id, existing_id)
+
+@rpc("any_peer", "call_local")
 func _spawn_player(id):
 	if has_node(str(id)):
 		return
@@ -52,6 +63,6 @@ func _spawn_player(id):
 
 	player.name = str(id)
 
-	add_child(player)
-
 	player.set_multiplayer_authority(id)
+
+	add_child(player)
