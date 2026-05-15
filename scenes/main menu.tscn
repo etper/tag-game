@@ -23,6 +23,11 @@ text = "localhost"
 placeholder_text = "WPISZ IP"
 alignment = 1
 
+[node name="NameInput" type="LineEdit" parent="VBoxContainer" unique_id=1838791756]
+layout_mode = 2
+placeholder_text = "Wpisz swój nickname"
+alignment = 1
+
 [node name="JoinButton" type="Button" parent="VBoxContainer" unique_id=1502832205]
 layout_mode = 2
 text = "DOŁĄCZ"

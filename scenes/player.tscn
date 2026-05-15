@@ -22,3 +22,9 @@ mesh = SubResource("CapsuleMesh_ig7tw")
 [node name="HeartbeatPlayer" type="AudioStreamPlayer3D" parent="." unique_id=2072563342]
 stream = ExtResource("2_g2els")
 parameters/looping = true
+
+[node name="NameLabel" type="Label3D" parent="." unique_id=603138905]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2985946, 0)
+billboard = 1
+text = "Sex"
+font_size = 64

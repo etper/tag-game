@@ -13,6 +13,9 @@ var player_scores = {
 	
 }
 
+var player_nicknames = {}
+var player_nickname = "Player"
+
 var game_state = GameState.WAITING
 
 @onready var tag_sound = $TagSound
@@ -70,6 +73,7 @@ func host_game():
 	print("Hosting")
 
 	_spawn_player.rpc(multiplayer.get_unique_id())
+	player_nicknames[multiplayer.get_unique_id()] = player_nickname
 
 func join_game(ip):
 	var peer = ENetMultiplayerPeer.new()
@@ -81,6 +85,7 @@ func join_game(ip):
 
 func _connected_ok():
 	print("Connected to server")
+	register_nickname.rpc_id(1, multiplayer.get_unique_id(), player_nickname)
 
 func _on_peer_connected(id):
 	print("Peer connected: ", id)
@@ -111,6 +116,12 @@ func _spawn_player(id):
 	player.set_multiplayer_authority(id)
 
 	add_child(player)
+	
+	if player_nicknames.has(id):
+
+		player.set_nickname(
+			player_nicknames[id]
+		)
 
 	player_scores[id] = 0
 
@@ -254,7 +265,8 @@ func update_ui():
 
 	for id in sorted_players:
 
-		var line = "Player " + str(id)
+		var nickname = player_nicknames.get(id, "Player " + str(id))
+		var line = nickname
 
 		if id == it_player_id:
 			line += " [IT]"
@@ -416,3 +428,29 @@ func get_local_pressure_ratio():
 @rpc("any_peer", "call_local")
 func sync_scores(new_scores):
 	player_scores = new_scores
+
+@rpc("any_peer")
+func register_nickname(id, nickname):
+
+	if multiplayer.is_server():
+
+		player_nicknames[id] = nickname
+
+		sync_nicknames.rpc(player_nicknames)
+
+@rpc("any_peer", "call_local")
+func sync_nicknames(new_names):
+
+	player_nicknames = new_names
+	
+	for child in get_children():
+
+		if child is CharacterBody3D:
+
+			var id = int(child.name)
+
+			if player_nicknames.has(id):
+
+				child.set_nickname(
+					player_nicknames[id]
+				)

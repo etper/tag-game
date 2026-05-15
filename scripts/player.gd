@@ -13,6 +13,8 @@ const GRAVITY = 20.0
 
 var danger_amount := 0.0
 
+var nickname = "Player"
+
 const MAX_JUMPS = 2
 
 var jumps_left = MAX_JUMPS
@@ -207,3 +209,9 @@ func set_danger_level(value):
 	else:
 
 		heartbeat_player.stop()
+
+func set_nickname(value):
+
+	nickname = value
+
+	$NameLabel.text = value

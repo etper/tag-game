@@ -44,6 +44,9 @@ vertical_alignment = 1
 offset_left = 868.0
 offset_right = 1152.0
 offset_bottom = 123.0
+text = "PLAYER 1: 0.0
+PLAYER 2: 0.0"
+horizontal_alignment = 2
 
 [node name="PressureBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=1509003843]
 offset_left = 444.0

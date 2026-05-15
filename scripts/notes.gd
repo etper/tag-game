@@ -2,19 +2,10 @@ extends Node
 
 #more fun game
 	#special powers for IT
-	#vertical movement
-		#grappling hook
-		#climbing
-		#sliding downhill
-		#
 	#parkour movement
 	#score pressure
 		#shrinking safe zone, gaining points outside fog
-		#combo scoring, tag someone within 5s of becoming IT, lose some points
 	#tagging feel good
-		#make the chase asymmetric
-			#give it one strong movement tool
-			#one weakness
 		#reward risky movement
 			#shortcuts
 			#dangerous routes
@@ -30,3 +21,24 @@ extends Node
 		#stamina
 		#dash recharge
 		#downhill speed boosts
+	#make IT have unique playstyle
+		#one unfair strength
+		#one exploitable weakness
+	#make concrete special map
+		#corners
+		#verticality
+		#escape routes
+		#commitment
+		#risky shortcuts
+	#make tagging more than proximity
+		#skill expression
+		#timing
+		#baiting
+		#directional combat
+		#clutch mechanics
+	#escalation during a round
+		#map changes
+		#danger increases
+		#mobility expands
+		#safe zones shrink
+		#players become desperate
