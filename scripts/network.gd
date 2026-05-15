@@ -120,7 +120,7 @@ func _process(delta):
 
 	update_ui()
 
-	if !multiplayer.is_server():
+	if multiplayer.is_server():
 		sync_game_state.rpc(game_state, current_time)
 		sync_scores.rpc(player_scores)
 
@@ -139,11 +139,13 @@ func _process(delta):
 		GameState.PLAYING:
 			current_time -= delta
 			
-			if it_player_id != -1:
-				player_scores[it_player_id] += delta
+			if multiplayer.is_server():
 			
-			check_tagging()
-			check_fallen_players()
+				if it_player_id != -1:
+					player_scores[it_player_id] += delta
+			
+				check_tagging()
+				check_fallen_players()
 
 			if current_time <= 0:
 				end_round()
