@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cdg1qr6ii8bpq" path="res://network.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://ccbycgdrj8uj8" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://bmf51ua542dj4" path="res://bounce_pad.tscn" id="3_h2yge"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_7dm0k"]
 
@@ -52,3 +53,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.839634, 1.5790586, 11.336
 
 [node name="Spawn5" type="Marker3D" parent="SpawnPoints" unique_id=1020758683]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8414307, 1.5790586, -8.072153)
+
+[node name="BouncePad" parent="." unique_id=1536415930 instance=ExtResource("3_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 0.029109241, 0, 0, 0, 1, -8.698833, 0.066275835, 3.2752762)
