@@ -11,6 +11,12 @@ const AIR_FRICTION = 5.0
 const JUMP_FORCE = 10.0
 const GRAVITY = 20.0
 
+const DASH_FORCE = 32.0
+const DASH_COOLDOWN = 3.5
+const DASH_UPWARD_BOOST = 0.5
+
+var dash_ready = true
+
 var danger_amount := 0.0
 
 var nickname = "Player"
@@ -114,6 +120,24 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("jump") and jumps_left > 0:
 			velocity.y = JUMP_FORCE
 			jumps_left -= 1
+			
+		if (
+			Input.is_action_just_pressed("dash")
+			and is_it
+			and dash_ready
+		):
+			
+			dash_ready = false
+			
+			var dash_direction = -transform.basis.z.normalized()
+			
+			velocity += dash_direction * DASH_FORCE
+			
+			add_screenshake(0.08)
+			
+			await get_tree().create_timer(DASH_COOLDOWN).timeout
+			
+			dash_ready = true
 
 		move_and_slide()
 
