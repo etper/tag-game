@@ -189,23 +189,23 @@ func restart_round():
 
 	game_state = GameState.WAITING
 
-	print("WAITING FOR PLAYERS")
+	print("OCZEKIWANIE NA GRACZY")
 
 func update_ui():
 
 	match game_state:
 
 		GameState.WAITING:
-			status_label.text = "Waiting for players..."
+			status_label.text = "Oczekiwanie na graczy..."
 
 		GameState.COUNTDOWN:
-			status_label.text = "Starting in: " + str(ceil(current_time))
+			status_label.text = "Start za: " + str(ceil(current_time))
 
 		GameState.PLAYING:
-			status_label.text = "Time Left: " + str(ceil(current_time))
+			status_label.text = "Pozostały czas: " + str(ceil(current_time))
 
 		GameState.ENDING:
-			status_label.text = "Round Over!"
+			status_label.text = "Koniec rundy!"
 
 func start_countdown():
 

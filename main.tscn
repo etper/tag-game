@@ -29,9 +29,12 @@ shape = SubResource("BoxShape3D_ig7tw")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1251456914]
 
 [node name="StatusLabel" type="Label" parent="CanvasLayer" unique_id=807001011]
-offset_right = 232.0
+offset_right = 1150.0
 offset_bottom = 120.0
+theme_override_font_sizes/font_size = 52
 text = "STATUS"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SpawnPoints" type="Node" parent="." unique_id=1982106776]
 

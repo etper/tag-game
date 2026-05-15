@@ -1,6 +1,8 @@
 extends CharacterBody3D
 
-const SPEED = 25.0
+const SPEED = 15.0
+
+const JUMP_FORCE = 10.0
 
 const GRAVITY = 20.0
 
@@ -35,6 +37,9 @@ func _physics_process(delta):
 			velocity.y -= GRAVITY * delta
 		else:
 			velocity.y = 0
+
+			if Input.is_action_just_pressed("jump"):
+				velocity.y = JUMP_FORCE
 
 		move_and_slide()
 
