@@ -356,6 +356,10 @@ func check_tagging():
 				)
 
 				child.apply_speed_boost.rpc()
+				
+				for p in get_children():
+					if p is CharacterBody3D:
+						p.set_danger_level.rpc(0.0)
 
 				return
 
