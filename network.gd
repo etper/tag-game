@@ -120,6 +120,7 @@ func _process(delta):
 			current_time -= delta
 			
 			check_tagging()
+			check_fallen_players()
 
 			if current_time <= 0:
 				end_round()
@@ -133,7 +134,34 @@ func _process(delta):
 	if multiplayer.is_server():
 		sync_game_state.rpc(game_state, current_time)
 
+func teleport_players():
+
+	var spawn_points = $SpawnPoints.get_children()
+
+	var used_spawns = []
+
+	for child in get_children():
+
+		if child is CharacterBody3D:
+
+			var available_spawns = []
+
+			for spawn in spawn_points:
+				if !used_spawns.has(spawn):
+					available_spawns.append(spawn)
+
+			if available_spawns.size() == 0:
+				return
+
+			var random_spawn = available_spawns.pick_random()
+
+			used_spawns.append(random_spawn)
+
+			child.force_teleport.rpc(random_spawn.global_position)
+
 func start_round():
+
+	teleport_players()
 
 	game_state = GameState.PLAYING
 	current_time = round_time
@@ -233,3 +261,18 @@ func check_tagging():
 				print("TAGGED: ", it_player_id)
 
 				return
+
+func check_fallen_players():
+
+	var spawn_points = $SpawnPoints.get_children()
+
+	for child in get_children():
+
+		if child is CharacterBody3D:
+
+			# fell under map
+			if child.global_position.y < 0:
+
+				var random_spawn = spawn_points.pick_random()
+
+				child.global_position = random_spawn.global_position

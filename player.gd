@@ -1,6 +1,8 @@
 extends CharacterBody3D
 
-const SPEED = 5.0
+const SPEED = 25.0
+
+const GRAVITY = 20.0
 
 var mouse_sensitivity = 0.002
 
@@ -28,6 +30,11 @@ func _physics_process(delta):
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			velocity.z = move_toward(velocity.z, 0, SPEED)
+
+		if !is_on_floor():
+			velocity.y -= GRAVITY * delta
+		else:
+			velocity.y = 0
 
 		move_and_slide()
 
@@ -78,3 +85,9 @@ func set_is_it(value):
 		material.albedo_color = Color.RED
 	else:
 		material.albedo_color = Color.WHITE
+
+@rpc("any_peer", "call_local")
+func force_teleport(new_position):
+
+	global_position = new_position
+	velocity = Vector3.ZERO

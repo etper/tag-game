@@ -23,7 +23,7 @@ transform = Transform3D(73.84437, 0, 0, 0, 0.07433671, 0, 0, 0, 100.60581, 0, 0,
 mesh = SubResource("BoxMesh_7dm0k")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=789555043]
-transform = Transform3D(19.43267, 0, 0, 0, 0.07433671, 0, 0, 0, 20.152657, 0, 0, 0)
+transform = Transform3D(73.5857, 0, 0, 0, 0.07433671, 0, 0, 0, 100.341934, 0, 0, 0)
 shape = SubResource("BoxShape3D_ig7tw")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1251456914]
@@ -32,3 +32,20 @@ shape = SubResource("BoxShape3D_ig7tw")
 offset_right = 232.0
 offset_bottom = 120.0
 text = "STATUS"
+
+[node name="SpawnPoints" type="Node" parent="." unique_id=1982106776]
+
+[node name="Spawn1" type="Marker3D" parent="SpawnPoints" unique_id=642117754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.941986, 1.5790586, -39.92807)
+
+[node name="Spawn2" type="Marker3D" parent="SpawnPoints" unique_id=182001792]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.259453, 1.5790586, -35.381104)
+
+[node name="Spawn3" type="Marker3D" parent="SpawnPoints" unique_id=2033297801]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.011307, 1.5790586, 33.89235)
+
+[node name="Spawn4" type="Marker3D" parent="SpawnPoints" unique_id=2056500485]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.839634, 1.5790586, 11.336948)
+
+[node name="Spawn5" type="Marker3D" parent="SpawnPoints" unique_id=1020758683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8414307, 1.5790586, -8.072153)
